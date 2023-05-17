@@ -6,7 +6,6 @@ from authentication.manager import UserManager
 from cart.models import Cart
 from order.models import Order
 
-from django_mysql.models import JSONField
 
 # Create your models here.
 class User(AbstractBaseUser, PermissionsMixin):
@@ -14,8 +13,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name='User email ', max_length=255, unique=True)
     name = models.CharField(verbose_name='Name ', max_length=255,)
     
-    cart = models.OneToOneField(verbose_name='User cart ', to=Cart, on_delete=models.CASCADE)
-    orders = models.OneToOneField(verbose_name='User cart ', to=Order, on_delete=models.CASCADE)
+    cart = models.OneToOneField(verbose_name='User cart ', to=Cart, null=True, on_delete=models.CASCADE)
+    orders = models.OneToOneField(verbose_name='User cart ', to=Order, null=True, on_delete=models.CASCADE)
     
     user_role = models.CharField(verbose_name='User role ', max_length=255, null=True, blank=True)
     
