@@ -13,10 +13,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name='User email ', max_length=255, unique=True)
     name = models.CharField(verbose_name='Name ', max_length=255,)
     
-    cart = models.OneToOneField(verbose_name='User cart ', to=Cart, null=True, on_delete=models.CASCADE)
-    orders = models.OneToOneField(verbose_name='User cart ', to=Order, null=True, on_delete=models.CASCADE)
-    
-    user_role = models.CharField(verbose_name='User role ', max_length=255, null=True, blank=True)
+    user_role = models.CharField(verbose_name='User role ', max_length=255, null=True, blank=True, default='user')
     
     is_superuser = models.BooleanField(verbose_name='Is superuser', default=False)
     
