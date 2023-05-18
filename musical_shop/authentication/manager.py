@@ -4,10 +4,12 @@ from cart.models import Cart
 from order.models import Order
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, name, password=None):
+    def create_user(self, email, name, user_role,  password=None,):
         user = self.model(
             email = self.normalize_email(email),
             name = name,
+            user_role = user_role,
+            password = password
             #cart = Cart.objects.get_or_create(data={"name": "Order 1", "description": "descr"})
         )
         
