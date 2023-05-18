@@ -5,8 +5,8 @@ from django.db import models
 
 class Order(models.Model):
 
-    user = models.ForeignKey("User", verbose_name="User id ", on_delete=models.CASCADE)
-    item = models.ForeignKey("Item", verbose_name='Name ', max_length=255, on_delete=models.CASCADE)
+    user = models.ForeignKey("authentication.User", verbose_name="User id ", on_delete=models.CASCADE)
+    item = models.ForeignKey("item.Item", verbose_name='Name ', max_length=255, on_delete=models.CASCADE)
     status = models.CharField(verbose_name='Order status ', max_length=100, default="Created")
     
     #objects = UserManager()
