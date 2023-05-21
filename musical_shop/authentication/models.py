@@ -3,9 +3,6 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 from .manager import UserManager
 
-from cart.models import Cart
-from order.models import Order
-
 
 # Create your models here.
 class User(AbstractBaseUser, PermissionsMixin):
