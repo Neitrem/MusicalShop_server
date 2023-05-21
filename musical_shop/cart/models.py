@@ -3,8 +3,10 @@ from django.db import models
 # Create your models here.
 
 class Cart(models.Model):
-    data = models.JSONField(verbose_name='Name ', max_length=255,)
-
+    
+    item = models.ForeignKey("item.Item", verbose_name='Name ', max_length=255, on_delete=models.CASCADE)
+    user = models.ForeignKey("authentication.User", verbose_name="User id ", on_delete=models.CASCADE)
+    amount = models.IntegerField(verbose_name='Item amount ')
     
     #objects = UserManager()
 
@@ -20,4 +22,4 @@ class Cart(models.Model):
     class Meta:
         verbose_name = 'Cart'
         verbose_name_plural = 'Cart'
-        ordering = ['id', 'email']
+        ordering = ['id', 'amount']

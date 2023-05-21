@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password': {'write_only': True}
         }
-        read_only_fields = ('is_superuser', 'groups', 'user_permissions')
+        read_only_fields = ('is_superuser', 'user_permissions', 'cart')
         
     def create(self, data):
         password = data.pop('password', None)
