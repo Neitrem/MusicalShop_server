@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
-from authentication.manager import UserManager
+from .manager import UserManager
 
 from cart.models import Cart
 from order.models import Order
