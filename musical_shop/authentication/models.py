@@ -12,7 +12,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     user_role = models.CharField(verbose_name='User role ', max_length=255, null=True, blank=True, default='user')
     
-    is_superuser = models.BooleanField(verbose_name='Is superuser', default=False)
+    is_staff = models.BooleanField(verbose_name='Is superuser', default=True)
     
     objects = UserManager()
     
