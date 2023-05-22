@@ -5,7 +5,7 @@ from django.db import models
 class Cart(models.Model):
     
     item = models.ForeignKey("item.Item", verbose_name='Name ', max_length=255, on_delete=models.CASCADE)
-    user = models.ForeignKey("authentication.User", verbose_name="User id ", on_delete=models.CASCADE)
+    user = models.ForeignKey("authentication.User", verbose_name="User email ", on_delete=models.CASCADE)
     amount = models.IntegerField(verbose_name='Item amount ')
     
     #objects = UserManager()

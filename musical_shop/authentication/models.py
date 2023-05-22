@@ -6,7 +6,6 @@ from .manager import UserManager
 
 # Create your models here.
 class User(AbstractBaseUser, PermissionsMixin):
-    
     email = models.EmailField(verbose_name='User email ', max_length=255, unique=True)
     name = models.CharField(verbose_name='Name ', max_length=255,)
     
@@ -15,8 +14,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(verbose_name='Is superuser', default=True)
     
     objects = UserManager()
-    
-
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']
