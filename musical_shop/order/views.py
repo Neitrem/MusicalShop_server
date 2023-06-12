@@ -1,14 +1,12 @@
+from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from item.models import Item
-from rest_framework.response import Response
-
-from order.models import Order
 
 
 class CartApiView(APIView):
     def get(self, request, *args, **kwargs):
-        pk = self.kwargs['pk']
+        pk = self.kwargs["pk"]
         items = Item.objects.all()
         items_cart = []
         name = ""
@@ -20,25 +18,26 @@ class CartApiView(APIView):
         if len(items_cart) > 0:
             items = []
             for item in items_cart:
-                items.append({
-                    "name": str(item.name),
-                    "description": str(item.description),
-                    "cost": str(item.cost),
-                    "amount": str(item.amount)}
+                items.append(
+                    {
+                        "name": str(item.name),
+                        "description": str(item.description),
+                        "cost": str(item.cost),
+                        "amount": str(item.amount),
+                    }
                 )
-            return Response({
-                "user": {
-                    "email": str(pk),
-                    "name": str(name)
-                },
-                "items":items,
-            })
+            return Response(
+                {
+                    "user": {"email": str(pk), "name": str(name)},
+                    "items": items,
+                }
+            )
         return Response({"data": "error"})
 
 
 class OrderApiView(APIView):
     def get(self, request, *args, **kwargs):
-        pk = self.kwargs['pk']
+        pk = self.kwargs["pk"]
         items = Item.objects.all()
         orders = {}
         for item in items:
@@ -48,14 +47,18 @@ class OrderApiView(APIView):
                         orders[item.order.id] = {}
                         orders[item.order.id]["status"] = item.order.status
                         orders[item.order.id]["items"] = []
-                    orders[item.order.id]["items"].append({
-                        "name": str(item.name),
-                        "description": str(item.description),
-                        "cost": str(item.cost),
-                        "amount": str(item.amount)
-                    })
+                    orders[item.order.id]["items"].append(
+                        {
+                            "name": str(item.name),
+                            "description": str(item.description),
+                            "cost": str(item.cost),
+                            "amount": str(item.amount),
+                        }
+                    )
         if len(orders) > 0:
-            return Response({
-                "orders":orders,
-            })
+            return Response(
+                {
+                    "orders": orders,
+                }
+            )
         return Response({"data": "error"})

@@ -5,21 +5,26 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('cart', '0003_auto_20230612_1606'),
-        ('item', '0001_initial'),
+        ("cart", "0003_auto_20230612_1606"),
+        ("item", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='item',
-            name='amount',
-            field=models.IntegerField(default=1, verbose_name='Item amount '),
+            model_name="item",
+            name="amount",
+            field=models.IntegerField(default=1, verbose_name="Item amount "),
         ),
         migrations.AddField(
-            model_name='item',
-            name='cart',
-            field=models.ForeignKey(default=0, max_length=255, on_delete=django.db.models.deletion.CASCADE, to='cart.cart', verbose_name='Cart'),
+            model_name="item",
+            name="cart",
+            field=models.ForeignKey(
+                default=0,
+                max_length=255,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="cart.cart",
+                verbose_name="Cart",
+            ),
         ),
     ]

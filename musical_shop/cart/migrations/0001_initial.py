@@ -6,27 +6,49 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('item', '0001_initial'),
+        ("item", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Cart',
+            name="Cart",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('amount', models.IntegerField(verbose_name='Item amount ')),
-                ('item', models.ForeignKey(max_length=255, on_delete=django.db.models.deletion.CASCADE, to='item.item', verbose_name='Name ')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='User id ')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("amount", models.IntegerField(verbose_name="Item amount ")),
+                (
+                    "item",
+                    models.ForeignKey(
+                        max_length=255,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="item.item",
+                        verbose_name="Name ",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="User id ",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Cart',
-                'verbose_name_plural': 'Cart',
-                'ordering': ['id', 'amount'],
+                "verbose_name": "Cart",
+                "verbose_name_plural": "Cart",
+                "ordering": ["id", "amount"],
             },
         ),
     ]

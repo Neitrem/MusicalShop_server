@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('authentication', '0002_auto_20230522_2152'),
+        ("authentication", "0002_auto_20230522_2152"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='is_staff',
-            field=models.BooleanField(default=True, verbose_name='Is superuser'),
+            model_name="user",
+            name="is_staff",
+            field=models.BooleanField(default=True, verbose_name="Is superuser"),
         ),
     ]

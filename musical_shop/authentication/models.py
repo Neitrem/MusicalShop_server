@@ -6,27 +6,31 @@ from .manager import UserManager
 
 # Create your models here.
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(verbose_name='User email ', max_length=255, unique=True)
-    name = models.CharField(verbose_name='Name ', max_length=255,)
-    
-    user_role = models.CharField(verbose_name='User role ', max_length=255, null=True, blank=True, default='user')
-    
-    is_staff = models.BooleanField(verbose_name='Is superuser', default=True)
-    
+    email = models.EmailField(verbose_name="User email ", max_length=255, unique=True)
+    name = models.CharField(
+        verbose_name="Name ",
+        max_length=255,
+    )
+
+    user_role = models.CharField(
+        verbose_name="User role ", max_length=255, null=True, blank=True, default="user"
+    )
+
+    is_staff = models.BooleanField(verbose_name="Is superuser", default=True)
+
     objects = UserManager()
-    
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name']
-    
+
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["name"]
+
     def __str__(self) -> str:
         return str(self.email)
-    
-        
+
     def save(self, *args, **kwargs):
         self.full_clean()
         return super().save(*args, **kwargs)
-    
+
     class Meta:
-        verbose_name = 'User'
-        verbose_name_plural = 'Users'
-        ordering = ['id', 'email']
+        verbose_name = "User"
+        verbose_name_plural = "Users"
+        ordering = ["id", "email"]
