@@ -21,7 +21,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from order.views import OrderApiView
+from order.views import CartApiView, OrderApiView
 from .routers import router
 
 urlpatterns = [
@@ -29,5 +29,6 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/cart/<str:pk>/', OrderApiView.as_view()),
+    path('api/cart/<str:pk>/', CartApiView.as_view()),
+    path('api/orders/<str:pk>/', OrderApiView.as_view()),
 ]

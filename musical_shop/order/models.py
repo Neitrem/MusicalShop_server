@@ -6,7 +6,6 @@ from django.db import models
 class Order(models.Model):
 
     user = models.ForeignKey("authentication.User", verbose_name="User email ", on_delete=models.CASCADE)
-    item = models.ForeignKey("item.Item", verbose_name='Name ', max_length=255, on_delete=models.CASCADE)
     status = models.CharField(verbose_name='Order status ', max_length=100, default="Created")
     
     #objects = UserManager()

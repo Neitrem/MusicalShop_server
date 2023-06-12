@@ -3,10 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Cart(models.Model):
-    
-    item = models.ForeignKey("item.Item", verbose_name='Name ', max_length=255, on_delete=models.CASCADE)
-    user = models.ForeignKey("authentication.User", verbose_name="User email ", on_delete=models.CASCADE)
-    amount = models.IntegerField(verbose_name='Item amount ')
+    user = models.OneToOneField("authentication.User", verbose_name="User email ", on_delete=models.CASCADE)
     
     #objects = UserManager()
 
@@ -22,4 +19,4 @@ class Cart(models.Model):
     class Meta:
         verbose_name = 'Cart'
         verbose_name_plural = 'Cart'
-        ordering = ['id', 'amount']
+        ordering = ['id']
