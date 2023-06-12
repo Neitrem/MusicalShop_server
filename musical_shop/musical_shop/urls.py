@@ -23,6 +23,7 @@ from rest_framework_simplejwt.views import (
 
 from order.views import CartApiView, OrderApiView
 from .routers import router
+from .yasg import urlpatterns as doc_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -32,3 +33,5 @@ urlpatterns = [
     path("api/cart/<str:pk>/", CartApiView.as_view()),
     path("api/orders/<str:pk>/", OrderApiView.as_view()),
 ]
+
+urlpatterns += doc_urls
