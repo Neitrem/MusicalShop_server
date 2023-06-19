@@ -74,6 +74,15 @@ CORS_ALLOWED_ORIGINS = [
 
 ROOT_URLCONF = "musical_shop.urls"
 
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "почта для отправки"
+EMAIL_HOST_PASSWORD = "пароль от почты для отправки"
+
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",

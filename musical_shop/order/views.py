@@ -1,7 +1,9 @@
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from item.models import Item
+from musical_shop.utils import send_report
 
 
 class CartApiView(APIView):
@@ -62,3 +64,7 @@ class OrderApiView(APIView):
                 }
             )
         return Response({"data": "error"})
+
+    def post(self, request, *args, **kwargs):
+        send_report()
+        return Response(status=status.HTTP_200_OK)
