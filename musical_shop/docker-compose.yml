@@ -3,8 +3,32 @@ version: '3'
 services:
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 127.0.0.1:8000
     volumes:
       - .:/back_django
     ports:
       - '8000:8000'
+  redis:
+    image: redis:alpine
+    depends_on:
+      - smtp-server
+  celery-beat:
+    build: .
+    command: celery -A core beat -l info
+    volumes:
+      - ./musical_shop/:/usr/src/app/
+    environment:
+      - DEBUG=1
+      - SECRET_KEY=dbaa1_i7%*3r9-=z-+_mz4r-!qeed@(-a_r(g@k8jo8y3r27%m
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+    depends_on:
+      - redis
+  smtp-server:
+    image: mailhog/mailhog
+    expose:
+      - 1025
+      - 8025
+    ports:
+      - '1025:1025'
+      - '8025:8025'
+
