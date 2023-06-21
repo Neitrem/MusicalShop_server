@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "order",
     "cart",
     "item",
+    "user_logging"
 ]
 
 REST_FRAMEWORK = {
@@ -66,6 +67,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'musical_shop.middleware.SaveRequest',
 ]
 
 CORS_ALLOWED_ORIGINS = [
