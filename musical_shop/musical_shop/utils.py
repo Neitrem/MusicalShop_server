@@ -27,3 +27,7 @@ def send_report():
         )
 
         mail_admins(subject=subject, message=message, html_message=None)
+
+
+
+
