@@ -4,29 +4,28 @@ from django.db import models
 
 
 class Item(models.Model):
+    GIT = "GUITAR"
+    AMP = "AMP"
+    ACC = "ACCESSUAR"
+
+    ITEM_TYPES = (
+        (GIT, "Guitar"),
+        (AMP, "Amp"),
+        (ACC, "Accessuar"),
+    )
+    
+    image = models.ImageField(verbose_name="Item image ", upload_to='images', null=True)
+    
     name = models.CharField(verbose_name="Item name ", max_length=255)
     description = models.CharField(verbose_name="Item decription ", max_length=255)
     cost = models.IntegerField(verbose_name="Item cost ")
-    cart = models.ForeignKey(
-        "cart.Cart",
-        verbose_name="Cart",
-        max_length=255,
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-    )
-    order = models.ForeignKey(
-        "order.Order",
-        verbose_name="Order",
-        max_length=255,
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-    )
+    type = models.CharField(verbose_name='Item type', max_length=255, choices=ITEM_TYPES, default=GIT)
+    
+    
     amount = models.IntegerField(verbose_name="Item amount ", default=1)
 
     def __str__(self) -> str:
-        return str(self.pk)
+        return str(self.name)
 
     def save(self, *args, **kwargs):
         self.full_clean()
