@@ -14,6 +14,7 @@ class Item(models.Model):
         (ACC, "Accessuar"),
     )
     
+    image = models.ImageField(verbose_name="Item image ", upload_to='images', null=True)
     
     name = models.CharField(verbose_name="Item name ", max_length=255)
     description = models.CharField(verbose_name="Item decription ", max_length=255)

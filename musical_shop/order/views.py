@@ -1,70 +1,38 @@
-from rest_framework import status
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 
-from item.models import Item
-from musical_shop.utils import send_report
-
-
-class CartApiView(APIView):
-    def get(self, request, *args, **kwargs):
-        pk = self.kwargs["pk"]
-        items = Item.objects.all()
-        items_cart = []
-        name = ""
-        for item in items:
-            if item.cart:
-                if str(item.cart.user) == pk:
-                    name = item.cart.user.name
-                    items_cart.append(item)
-        if len(items_cart) > 0:
-            items = []
-            for item in items_cart:
-                items.append(
-                    {
-                        "name": str(item.name),
-                        "description": str(item.description),
-                        "cost": str(item.cost),
-                        "amount": str(item.amount),
-                    }
-                )
-            return Response(
-                {
-                    "user": {"email": str(pk), "name": str(name)},
-                    "items": items,
-                }
-            )
-        return Response({"data": "error"})
+from order.models import Order
+from authentication.serializers import UserSerializer
 
 
-class OrderApiView(APIView):
-    def get(self, request, *args, **kwargs):
-        pk = self.kwargs["pk"]
-        items = Item.objects.all()
-        orders = {}
-        for item in items:
-            if item.order:
-                if str(item.order.user) == pk:
-                    if item.order not in orders.keys():
-                        orders[item.order.id] = {}
-                        orders[item.order.id]["status"] = item.order.status
-                        orders[item.order.id]["items"] = []
-                    orders[item.order.id]["items"].append(
-                        {
-                            "name": str(item.name),
-                            "description": str(item.description),
-                            "cost": str(item.cost),
-                            "amount": str(item.amount),
-                        }
-                    )
-        if len(orders) > 0:
-            return Response(
-                {
-                    "orders": orders,
-                }
-            )
-        return Response({"data": "error"})
 
-    def post(self, request, *args, **kwargs):
-        send_report()
-        return Response(status=status.HTTP_200_OK)
+
+class OrderViewSet(ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = UserSerializer
+    
+    @action(
+        methods=["GET"],
+        detail=False,
+        permission_classes=[IsAuthenticated],
+        url_path="get",
+    )
+    def get_user(self, request):
+        user = request.user
+        orders = Order.objects.filter(user__email=user)
+        items = []
+        for order in orders:
+            item = order.item
+            items.append(
+            {
+                "id": order.pk,
+                "name": str(item.name),
+                #"description": str(item.description),
+                "cost": str(item.cost),
+                "amount": int(order.amount),
+                "status": str(order.status),
+                "image_url": 'http://127.0.0.1:8000' + str(item.image.url).removeprefix('/images')
+            })
+        return Response({"items": items})

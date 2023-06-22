@@ -16,12 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
 
-from order.views import CartApiView, OrderApiView
 from .routers import router
 from .yasg import urlpatterns as doc_urls
 
@@ -30,8 +31,6 @@ urlpatterns = [
     path("api/", include(router.urls)),
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    path("api/cart/<str:pk>/", CartApiView.as_view()),
-    path("api/orders/<str:pk>/", OrderApiView.as_view()),
 ]
 
-urlpatterns += doc_urls
+urlpatterns += doc_urls + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

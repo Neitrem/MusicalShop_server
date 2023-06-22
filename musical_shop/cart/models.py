@@ -17,6 +17,8 @@ class Cart(models.Model):
         blank=True,
     )
 
+    amount = models.IntegerField(verbose_name="Amount of item ", default=1)
+
     # objects = UserManager()
 
     def __str__(self) -> str:
