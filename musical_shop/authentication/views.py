@@ -59,6 +59,17 @@ class UserViewSet(ModelViewSet):
         user = request.user
         data = self.serializer_class(user).data
         return Response(data)
+    
+    @action(
+        methods=["GET"],
+        detail=False,
+        permission_classes=[IsAuthenticated],
+        url_path="account",
+    )
+    def get_user(self, request):
+        user = request.user
+        data = self.serializer_class(user).data
+        return Response(data)
 
     @action(
         methods=["POST"],
